@@ -6,13 +6,13 @@
             <h2 class="my-3">Form Ubah Data Anime</h2>
             
             <form action="/anime/update/<?=$anime['id']; ?>" method="post" enctype="multipart/form-data">
-                <?=$csrf_field(); ?>
+                <?= csrf_field(); ?>
                 <input type="hidden" name="slug" value="<?=$anime['slug']?>">
                 <input type="hidden" name="sampulLama" value="<?=$anime['sampul']?>">
   <div class="form-group row">
     <label for="judul" class="col-sm-2 col-form-label">Judul</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control<?=($validation->hasError['judul'])? 'is-invalid' : '' ; ?>" id="judul" name="judul" autofocus value="<?=(old("judul"))? old('judul') : $anime['judul']?>">
+      <input type="text" class="form-control<?=($validation->hasError('judul'))? 'is-invalid' : '' ; ?>" id="judul" name="judul" autofocus value="<?= (old("judul"))? old('judul') : $anime['judul']?>">
       <div id="validationServer03Feedback" class="invalid-feedback">
         <?=$validation->getError('judul'); ?>
       </div>
@@ -31,17 +31,23 @@
     </div>
   </div>
   <div class="form-group row">
+    <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="keterangan" name="keterangan" value="<?=(old("keterangan"))? old('keterangan') : $anime['keterangan']?>">
+    </div>
+  </div>
+  <div class="form-group row">
     <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
     <div class="col-sm-2">
       <img src="/img/<?=$anime['sampul']; ?>" class="img-thumbnail img-preview">
     </div>
     <div class="col-sm-8">
     <div class="custom-file">
-  <input type="file" class="custom-file-input <?=($validation->hasError['sampul'])? 'is-invalid' : '' ; ?>" id="sampul" name="sampul" onchange="previewImg()">
+  <input type="file" class="custom-file-input <?=($validation->hasError('sampul'))? 'is-invalid' : '' ; ?>" id="sampul" name="sampul" onchange="previewImg()">
   <div id="validationServer03Feedback" class="invalid-feedback">
         <?=$validation->getError('sampul'); ?>
   </div>
-  <label class="custom-file-label" for="sampul"></label>
+  <label class="custom-file-label" for="sampul"><?=$anime['sampul']; ?></label>
 </div>
     </div>
   </div>

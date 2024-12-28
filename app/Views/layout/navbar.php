@@ -7,10 +7,10 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-link active" href="<?= base_url('/')?>">Home</a>
-      <a class="nav-link" href="<?= base_url('/pages/about')?>">About</a>
+      <a class="nav-link" href="<?= base_url('/pages/about')?>">Tentang Anime</a>
       <a class="nav-link" href="/pages/contact">Contact</a>
-      <a class="nav-link" href="/anime">Anime</a>
-      <a class="nav-link" href="/mahasiswa">Mahasiswa</a>
+      <a class="nav-link" href="/anime">Anime Favorit</a>
+      <!-- <a class="nav-link" href="/mahasiswa">Mahasiswa</a> -->
     </div>
   </div>
 </div>

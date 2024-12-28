@@ -6,9 +6,9 @@ use CodeIgniter\Model;
 
 class AnimeModel extends Model
 {
-    protected $table = 'anime';
+    protected $table = 'anime2';
     protected $useTimeStamps = true;
-    protected $allowedFields = ['judul', 'slug', 'penulis', 'penerbit', 'sampul'];
+    protected $allowedFields = ['judul', 'slug', 'penulis', 'penerbit', 'keterangan', 'sampul'];
 
     public function getAnime($slug = false)
     {

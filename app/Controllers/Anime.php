@@ -30,6 +30,7 @@ class Anime extends BaseController
     }
     public function detail($slug)
     {
+        $anime = $this->animeModel->getAnime($slug);
         $data = [
             'key' => 'Detail Anime',
             'anime' => $this->animeModel->getAnime($slug)
@@ -53,11 +54,11 @@ class Anime extends BaseController
     public function save()
     {
         // validasi input
-        if(!$this->validate([
+        if( !$this->validate([
             // 'judul' => 'required|is_unique[anime.judul]',
             'judul' => [
-                'rules'=> 'required|is_unique[anime.judul]',
-                'errors'=> [
+                'rules' => 'required|is_unique[anime2.judul]',
+                'errors' => [
                     'required' => '{field} anime harus diiisi.',
                     'is_unique' => '{field} anime sudah terdaftar'
                 ]
@@ -71,10 +72,10 @@ class Anime extends BaseController
                         'mime_in' => 'Yang anda pilih bukan gambar'
                     ]
                 ]
-        ])){
-            // $validation = \Config\Services::validation();
+            ])){
+            // $validation = \Config\Services::validation(); //akan menampilkan validation sesuai permasalahan asal di dd(dumb and die)
             // return redirect()->to('/anime/create')->withInput()->with('validation', $validation);
-            return redirect()->to('/anime/create')->withInput();
+            return redirect()->to('/anime/create')->withInput(); //redirect tidak bisa menggunakan ,data
             // $data['validation'] = $validation;
             // return view('/anime/create', $data);
         }
@@ -87,7 +88,7 @@ class Anime extends BaseController
             //generate nama sampul random
             $namaSampul = $fileSampul->getRandomName();
             //pindahkan file ke folder img
-            $fileSampul->move('img'); //move ini akan langsung ke folder public lalu masukkan ke folder img
+            $fileSampul->move('img', $namaSampul); //move ini akan langsung ke folder public lalu masukkan ke folder img
         }
         
         $slug = url_title($this->request->getVar('judul'), '-', true);
@@ -105,7 +106,8 @@ class Anime extends BaseController
         // cari gambar berdasarkan id
         $anime = $this->animeModel->find($id);
         //cek jika file gambar default.png
-        if($anime['sampul'] != 'missing-image.png' ){
+        if($anime['sampul'] != 'missing-image.png' );
+        {
             //hapus gambar
             unlink('img/' . $anime['sampul']); //agar gambar yang terhapus tidak ada di folder img
         }
@@ -130,7 +132,7 @@ class Anime extends BaseController
         if($animeLama['judul'] == $this->request->getVar('judul')){
             $rule_judul = 'required';
         }else{
-            $rule_judul = 'required|is_unique[anime.judul]';
+            $rule_judul = 'required|is_unique[anime2.judul]';
         }
         if(!$this->validate([
             'judul' => [
@@ -150,7 +152,8 @@ class Anime extends BaseController
                 ]
         ])){
             // $validation = \Config\Services::validation();
-            return redirect()->to('/anime/edit' . $this->request->getVar('slug'))->withInput();//->with('validation', $validation);
+            return redirect()->to('/anime/edit/' . $this->request->getVar('slug'))->withInput();//->with('validation', $validation);
+        }
         $fileSampul = $this->request->getFile('sampul');
         //cek gambar, apakah tetap gambar lama
         if($fileSampul->getError() == 4){
@@ -170,10 +173,10 @@ class Anime extends BaseController
             'slug' => $slug,
             'penulis' => $this->request->getVar('penulis'),
             'penerbit' => $this->request->getVar('penerbit'),
+            'keterangan' => $this->request->getVar('keterangan'),
             'sampul' => $namaSampul
         ]);
         session()->setFlashdata('pesan', 'Data Berhasil Diubah');
         return redirect()->to('/anime');
     }
    }
-}

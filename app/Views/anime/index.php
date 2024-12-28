@@ -5,9 +5,8 @@
         <div class="col">
           <a href="/anime/create" class="btn btn-primary mt-3">Tambah Data Anime</a>
             <h1 class="mt-2">Daftar Anime</h1>
-            <?php if($session()->getFlashdata('pesan')): ?>
-              <div class="alert alert-success" role="alert"><?=$session()->getFlashdata('pesan'); ?>
-</div>
+            <?php if(session()->getFlashdata('pesan')): ?>
+              <div class="alert alert-success" role="alert"><?= session()->getFlashdata('pesan'); ?></div>
             <?php endif; ?>
         <table class="table">
   <thead>
@@ -25,7 +24,7 @@
       <th scope="row"><?=$i++; ?></th>
       <td><img src="/img/<?=$a['sampul']?>" alt="" class="sampul"></td>
       <td><?=$a['judul']?></td>
-      <td><a href="/komik/<?=$k['slug']?>" class="btn btn-success"></a>Detail</td>
+      <td><a href="/anime/<?=$a['slug']?>" class="btn btn-success">Detail</a></td>
     </tr>
     <?php endforeach; ?>
   </tbody>
